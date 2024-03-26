@@ -6,10 +6,8 @@ namespace App
     {
         static void Main(string[] args)
         {
-            //int[] arr = CreateArray(100);
-            //int[] arr = new int[] { 7,8,10,2,26,4,19,5,3,16,11,6,13,12};
-            //int[] arr = new int[] {3, 10, 9, 4, 1, 2, 8, 7, 6, 5 };
-            int[] arr = new int[] { 3, 1, 2, 9, 4, 5, 7, 8, 6, 10 };
+            int[] arr = CreateArray(100);
+            //int[] arr = new int[] {3,10,9,4,1,2,8,7,6,5 };
 
             Algorithm a = new Algorithm();
             long comps = a.QuickSort2(arr);
@@ -27,7 +25,7 @@ namespace App
 
             for(long i = 0; i < size; i++)
             {
-                res[i] = Random.Shared.Next(0, 1000);
+                res[i] = Random.Shared.Next(0, 100);
             }
 
             return res;

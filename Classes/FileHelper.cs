@@ -12,14 +12,14 @@
             using FileStream stream = File.OpenRead(path);
             using StreamReader reader = new StreamReader(stream);
 
-            long size = long.Parse(await reader.ReadLineAsync());
+            long size = long.Parse(await reader.ReadLineAsync() ?? "0");
 
             int[] res = new int[size];
 
             int i = 0;
             while (!reader.EndOfStream)
             {
-                res[i++] = int.Parse(await reader.ReadLineAsync());
+                res[i++] = int.Parse(await reader.ReadLineAsync() ?? "0");
             }
 
             return res;
