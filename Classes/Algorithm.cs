@@ -1,6 +1,4 @@
-﻿using System.Security.AccessControl;
-
-namespace Classes
+﻿namespace Classes
 {
     public class Algorithm
     {
@@ -57,7 +55,6 @@ namespace Classes
 
             if (r - l == 2)
             {
-                _comparisons += 3;
                 int m = (l + r) / 2;
 
                 SortThree(arr, l, m, r);
@@ -82,8 +79,6 @@ namespace Classes
         private int _QuickSort2Split(int[] arr, int l, int r)
         {
             int m = (l + r) / 2;
-
-            _comparisons += 3;
 
             SortThree(arr, l, m, r);
 
@@ -110,6 +105,7 @@ namespace Classes
         //Sort three items at given indices
         private void SortThree(int[] arr, int l, int m, int r)
         {
+            _comparisons += 3;
             int min;
             if (arr[m] < arr[r])
             {
