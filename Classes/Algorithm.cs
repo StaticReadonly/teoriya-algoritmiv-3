@@ -1,4 +1,4 @@
-﻿namespace Classes
+namespace Classes
 {
     public class Algorithm
     {
@@ -27,7 +27,7 @@
             int pivot = arr[r];
             int index = l - 1;
 
-            for(int i = l; i < r; i++)
+            for (int i = l; i < r; i++)
             {
                 this._comparisons++;
                 if (arr[i] < pivot)
@@ -69,7 +69,7 @@
                     (arr[l], arr[r]) = (arr[r], arr[l]);
                 return;
             }
-            
+
             int pivot = _QuickSort2Split(arr, l, r);
 
             _QuickSort2(arr, l, pivot - 1);
@@ -87,7 +87,7 @@
             int pivotIndex = r - 1;
             (arr[m], arr[pivotIndex]) = (arr[pivotIndex], arr[m]);
 
-            for(int i = index; i < pivotIndex; i++)
+            for (int i = index; i < pivotIndex; i++)
             {
                 _comparisons++;
                 if (arr[i] < pivot)
@@ -126,5 +126,124 @@
                 (arr[m], arr[r]) = (arr[r], arr[m]);
             }
         }
+
+        //sort with 3 pivot elements
+        public long QuickSort3(int[] arr)
+        {
+            _comparisons = 0L;
+            _QuickSort3(arr, 0, arr.Length - 1);
+            return _comparisons;
+        }
+        private void _QuickSort3(int[] arr, int l, int r)
+        {
+            if (l >= r) return;
+
+            if (r - l == 2)
+            {
+                int m = (l + r) / 2;
+
+                SortThree(arr, l, m, r);
+
+                return;
+            }
+
+            if (r - l == 1)
+            {
+                _comparisons++;
+                if (arr[l] > arr[r])
+                    (arr[l], arr[r]) = (arr[r], arr[l]);
+                return;
+            }
+
+            int pivot = _QuickSort3Split(arr, l, r);
+
+            _QuickSort3(arr, l, pivot - 1);
+            _QuickSort3(arr, pivot + 1, r);
+        }
+
+        private int _QuickSort3Split(int[] arr, int l, int r)
+        {
+            int a = l + 2, b = l + 2, c = r - 1, d = r - 1;
+            int p = arr[l], q = arr[l + 1], pivot = arr[r];
+
+            while (b <= c)
+            {
+                _comparisons++;
+                for(; arr[b] < q && b <= c; _comparisons++)
+                {
+                    _comparisons++;
+                    if (arr[b] < p)
+                    {
+                        (arr[a], arr[b]) = (arr[b], arr[a]);
+                        a++;
+                    }
+                    b++;
+                }
+
+                _comparisons++;
+
+                for(; arr[c] > q && b <= c; _comparisons++)
+                {
+                    _comparisons++;
+                    if (arr[c] > pivot)
+                    {
+                        (arr[c], arr[d]) = (arr[d], arr[c]);
+                        d--;
+                    }
+                    c--;
+                }
+
+                if (b <= c)
+                {
+                    _comparisons++;
+                    if (arr[b] > pivot)
+                    {
+                        _comparisons++; 
+                        if (arr[c] < p)
+                        {
+                            (arr[b], arr[a]) = (arr[a], arr[b]);
+                            (arr[a], arr[c]) = (arr[c], arr[a]);
+                            a++;
+                        }
+                        else
+                        {
+                            (arr[b], arr[c]) = (arr[c], arr[b]);
+                        }
+                        (arr[c], arr[d]) = (arr[d], arr[c]);
+                        b++;
+                        c--;
+                        d--;
+                    }
+                    else
+                    {
+                        _comparisons++; 
+                        if (arr[c] < p)
+                        {
+                            (arr[b], arr[a]) = (arr[a], arr[b]);
+                            (arr[a], arr[c]) = (arr[c], arr[a]);
+                            a++;
+                        }
+                        else
+                        {
+                            (arr[b], arr[c]) = (arr[c], arr[b]);
+                        }
+                        b++;
+                        c--;
+                    }
+                }
+            }
+
+            a--;
+            b--;
+            d++;
+            (arr[l + 1], arr[a]) = (arr[a], arr[l + 1]);
+            (arr[a], arr[b]) = (arr[b], arr[a]);
+            a--;
+            (arr[l], arr[a]) = (arr[a], arr[l]);
+            (arr[r], arr[d]) = (arr[d], arr[r]);
+
+            return a;
+        }
+
     }
 }
